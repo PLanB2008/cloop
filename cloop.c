@@ -308,7 +308,8 @@ static ssize_t cloop_read_from_file(struct cloop_device *clo, struct file *f, ch
    /* int size_read = kernel_read(f, pos, buf + buf_done, size); */
    mm_segment_t old_fs = get_fs();
    set_fs(get_ds());
-   size_read = vfs_read(f, (void __user *)(buf + buf_done), size, &pos);
+   //size_read = vfs_read(f, (void __user *)(buf + buf_done), size, &pos);
+   size_read = kernel_read(f, (void __user *)(buf + buf_done), size, &pos);
    set_fs(old_fs);
 
    if(size_read <= 0)
